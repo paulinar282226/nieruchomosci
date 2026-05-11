@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Icon Generator</title>
+  </head>
+  <body>
+    <script>
+      function generateIcon(size, maskable = false) {
+        const canvas = document.createElement('canvas')
+        canvas.width = size
+        canvas.height = size
+        const ctx = canvas.getContext('2d')
+
+        if (maskable) {
+          ctx.fillStyle = '#3273dc'
+        } else {
+          ctx.fillStyle = '#ffffff'
+          ctx.fillRect(0, 0, size, size)
+          ctx.fillStyle = '#3273dc'
+        }
+
+        const padding = size * 0.1
+        ctx.fillRect(padding, padding, size - padding * 2, size - padding * 2)
+
+        ctx.fillStyle = '#ffffff'
+        ctx.font = `bold ${size * 0.5}px Arial`
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillText('🏠', size / 2, size / 2)
+
+        return canvas.toDataURL('image/png')
+      }
+
+      const icon192 = generateIcon(192, false)
+      const icon512 = generateIcon(512, false)
+      const iconMaskable192 = generateIcon(192, true)
+      const iconMaskable512 = generateIcon(512, true)
+
+      console.log('Icons generated. Copy these URLs and save as PNG files.')
+      console.log('icon-192x192.png:', icon192)
+      console.log('icon-512x512.png:', icon512)
+      console.log('icon-maskable-192x192.png:', iconMaskable192)
+      console.log('icon-maskable-512x512.png:', iconMaskable512)
+
+      fetch('/api/save-icon', {
+        method: 'POST',
+        body: JSON.stringify({ icon192, icon512, iconMaskable192, iconMaskable512 }),
+      })
+    </script>
+  </body>
+</html>

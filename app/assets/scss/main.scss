@@ -1,0 +1,27 @@
+@use 'bulma/sass' with (
+  $family-primary: (
+    'Nunito',
+    Arial,
+    sans-serif,
+  ),
+  $primary: #d4a0a0,
+  $link: #c48484,
+  $info: #e8c4c4,
+  $success: #b5c9a1,
+  $warning: #f2d7b6,
+  $danger: #c97171,
+  $dark: #4a3b3b,
+  $text: #4a3b3b,
+  $navbar-background-color: #fff5f5,
+  $footer-background-color: #4a3b3b,
+  $footer-color: #f5e6e6,
+  $scheme-main: #fff
+);
+
+.lucide-menu-icon {
+  color: #4a3b3b;
+}
+
+.hero {
+  background-color: #fff;
+}
