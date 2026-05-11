@@ -1,6 +1,7 @@
 import type { Listing } from '~/types'
 
-const sharedImage = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&h=600&fit=crop'
+const sharedImage =
+  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&h=600&fit=crop'
 
 const agencyNames = [
   'Good Life Estates',
@@ -37,11 +38,7 @@ function seededRandom(seed: number): number {
   return x - Math.floor(x)
 }
 
-function generateListingsForCity(
-  city: string,
-  count: number,
-  priceMultiplier: number,
-): Listing[] {
+function generateListingsForCity(city: string, count: number, priceMultiplier: number): Listing[] {
   const listings: Listing[] = []
   const cityDistricts = districts[city as keyof typeof districts] || ['Centrum']
 
@@ -51,25 +48,15 @@ function generateListingsForCity(
 
     const offerType = rand(1) > 0.5 ? 'sprzedaz' : 'wynajem'
     const propertyType = rand(2) > 0.6 ? 'mieszkanie' : 'dom'
-    const rooms =
-      propertyType === 'dom'
-        ? Math.floor(rand(3) * 3 + 3)
-        : Math.floor(rand(3) * 3 + 1)
+    const rooms = propertyType === 'dom' ? Math.floor(rand(3) * 3 + 3) : Math.floor(rand(3) * 3 + 1)
     const area =
-      propertyType === 'dom'
-        ? Math.floor(rand(4) * 100 + 100)
-        : Math.floor(rand(4) * 60 + 30)
+      propertyType === 'dom' ? Math.floor(rand(4) * 100 + 100) : Math.floor(rand(4) * 60 + 30)
     const basePrice =
-      offerType === 'sprzedaz'
-        ? area * (3000 + rand(5) * 2000)
-        : area * (30 + rand(5) * 20)
+      offerType === 'sprzedaz' ? area * (3000 + rand(5) * 2000) : area * (30 + rand(5) * 20)
     const price = Math.round(basePrice * priceMultiplier)
-    const floor =
-      propertyType === 'dom' ? null : Math.floor(rand(6) * 8)
+    const floor = propertyType === 'dom' ? null : Math.floor(rand(6) * 8)
     const yearBuilt = Math.floor(rand(7) * 30 + 1990)
-    const createdAt = new Date(
-      Date.now() - rand(8) * 60 * 24 * 60 * 1000,
-    ).toISOString()
+    const createdAt = new Date(Date.now() - rand(8) * 60 * 24 * 60 * 1000).toISOString()
 
     const titleText = titles[Math.floor(rand(9) * titles.length)]
     const district = cityDistricts[Math.floor(rand(10) * cityDistricts.length)]

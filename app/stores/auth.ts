@@ -34,21 +34,14 @@ export const useAuthStore = defineStore('auth', () => {
   const saveToStorage = () => {
     if (typeof window === 'undefined') return
     localStorage.setItem('users', JSON.stringify(users.value))
-    localStorage.setItem(
-      'currentUser',
-      JSON.stringify(currentUser.value),
-    )
+    localStorage.setItem('currentUser', JSON.stringify(currentUser.value))
   }
 
   const encodePassword = (password: string): string => {
     return btoa(password)
   }
 
-  const register = (
-    email: string,
-    name: string,
-    password: string,
-  ): boolean => {
+  const register = (email: string, name: string, password: string): boolean => {
     if (users.value.some((u) => u.email === email)) {
       return false
     }

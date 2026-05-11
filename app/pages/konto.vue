@@ -1,75 +1,75 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: 'default',
-})
+  definePageMeta({
+    layout: 'default',
+  })
 
-const router = useRouter()
-const authStore = useAuthStore()
-const reservationsStore = useReservationsStore()
+  const router = useRouter()
+  const authStore = useAuthStore()
+  const reservationsStore = useReservationsStore()
 
-const userReservations = computed(() => {
-  if (!authStore.currentUser) return []
-  return reservationsStore.getUserReservations(authStore.currentUser.id)
-})
+  const userReservations = computed(() => {
+    if (!authStore.currentUser) return []
+    return reservationsStore.getUserReservations(authStore.currentUser.id)
+  })
 
-const handleLogout = () => {
-  authStore.logout()
-  router.push('/logowanie')
-}
-
-const handleCancelReservation = (reservationId: string) => {
-  reservationsStore.cancelReservation(reservationId)
-}
-
-const handleCompleteReservation = (reservationId: string) => {
-  reservationsStore.completeReservation(reservationId)
-}
-
-const getStatusBadgeClass = (status: string) => {
-  switch (status) {
-    case 'aktywna':
-      return 'is-info'
-    case 'zakonczona':
-      return 'is-success'
-    case 'anulowana':
-      return 'is-danger'
-    case 'rozwiazana':
-      return 'is-warning'
-    default:
-      return 'is-grey'
-  }
-}
-
-const getStatusLabel = (status: string) => {
-  switch (status) {
-    case 'aktywna':
-      return 'Aktywna'
-    case 'zakonczona':
-      return 'Zakończona'
-    case 'anulowana':
-      return 'Anulowana'
-    case 'rozwiazana':
-      return 'Rozwiązana'
-    default:
-      return status
-  }
-}
-
-const formatPrice = (price: number) => {
-  return new Intl.NumberFormat('pl-PL', {
-    style: 'currency',
-    currency: 'PLN',
-  }).format(price)
-}
-
-onMounted(() => {
-  authStore.loadFromStorage()
-  reservationsStore.loadFromStorage()
-
-  if (!authStore.isAuthenticated) {
+  const handleLogout = () => {
+    authStore.logout()
     router.push('/logowanie')
   }
-})
+
+  const handleCancelReservation = (reservationId: string) => {
+    reservationsStore.cancelReservation(reservationId)
+  }
+
+  const handleCompleteReservation = (reservationId: string) => {
+    reservationsStore.completeReservation(reservationId)
+  }
+
+  const getStatusBadgeClass = (status: string) => {
+    switch (status) {
+      case 'aktywna':
+        return 'is-info'
+      case 'zakonczona':
+        return 'is-success'
+      case 'anulowana':
+        return 'is-danger'
+      case 'rozwiazana':
+        return 'is-warning'
+      default:
+        return 'is-grey'
+    }
+  }
+
+  const getStatusLabel = (status: string) => {
+    switch (status) {
+      case 'aktywna':
+        return 'Aktywna'
+      case 'zakonczona':
+        return 'Zakończona'
+      case 'anulowana':
+        return 'Anulowana'
+      case 'rozwiazana':
+        return 'Rozwiązana'
+      default:
+        return status
+    }
+  }
+
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('pl-PL', {
+      style: 'currency',
+      currency: 'PLN',
+    }).format(price)
+  }
+
+  onMounted(() => {
+    authStore.loadFromStorage()
+    reservationsStore.loadFromStorage()
+
+    if (!authStore.isAuthenticated) {
+      router.push('/logowanie')
+    }
+  })
 </script>
 
 <template>
@@ -83,9 +83,7 @@ onMounted(() => {
         </div>
         <div class="level-right">
           <div class="level-item">
-            <button class="button is-light" @click="handleLogout()">
-              Wyloguj się
-            </button>
+            <button class="button is-light" @click="handleLogout()">Wyloguj się</button>
           </div>
         </div>
       </div>
@@ -124,10 +122,15 @@ onMounted(() => {
                 <p><strong>Cena:</strong> {{ formatPrice(reservation.listingPrice) }}</p>
               </div>
               <div class="column is-4">
-                <p><strong>Typ:</strong> {{ reservation.type === 'sprzedaz' ? 'Kupno' : 'Wynajem' }}</p>
+                <p>
+                  <strong>Typ:</strong> {{ reservation.type === 'sprzedaz' ? 'Kupno' : 'Wynajem' }}
+                </p>
               </div>
               <div class="column is-4">
-                <p><strong>Data:</strong> {{ new Date(reservation.createdAt).toLocaleDateString('pl-PL') }}</p>
+                <p>
+                  <strong>Data:</strong>
+                  {{ new Date(reservation.createdAt).toLocaleDateString('pl-PL') }}
+                </p>
               </div>
             </div>
 
@@ -150,9 +153,7 @@ onMounted(() => {
 
         <div v-else class="notification is-info">
           <p>Nie masz żadnych rezerwacji. Zacznij szukać nieruchomości!</p>
-          <NuxtLink to="/szukaj" class="button is-info mt-3">
-            Szukaj nieruchomości
-          </NuxtLink>
+          <NuxtLink to="/szukaj" class="button is-info mt-3"> Szukaj nieruchomości </NuxtLink>
         </div>
       </div>
     </div>
@@ -160,11 +161,11 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.box {
-  border-radius: 4px;
-}
+  .box {
+    border-radius: 4px;
+  }
 
-.tag {
-  text-transform: capitalize;
-}
+  .tag {
+    text-transform: capitalize;
+  }
 </style>

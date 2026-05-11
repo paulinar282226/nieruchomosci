@@ -1,16 +1,16 @@
 <script setup lang="ts">
-const listingsStore = useListingsStore()
-const route = useRoute()
-const router = useRouter()
+  const listingsStore = useListingsStore()
+  const route = useRoute()
+  const router = useRouter()
 
-const handleSearch = () => {
-  router.push('/szukaj')
-}
+  const handleSearch = () => {
+    router.push('/szukaj')
+  }
 
-const handleSelectCity = (city: string) => {
-  listingsStore.setFilters({ city, query: '' })
-  router.push('/szukaj')
-}
+  const handleSelectCity = (city: string) => {
+    listingsStore.setFilters({ city, query: '' })
+    router.push('/szukaj')
+  }
 </script>
 
 <template>
@@ -51,9 +51,7 @@ const handleSelectCity = (city: string) => {
         />
       </div>
       <div class="control">
-        <button class="button is-info" @click="handleSearch()">
-          🔍 Szukaj
-        </button>
+        <button class="button is-info" @click="handleSearch()">🔍 Szukaj</button>
       </div>
     </div>
 
@@ -74,30 +72,30 @@ const handleSelectCity = (city: string) => {
 </template>
 
 <style scoped>
-.search-form-container {
-  background: white;
-  padding: 20px;
-  border-radius: 4px;
-  margin: 16px 0;
-}
+  .search-form-container {
+    background: white;
+    padding: 20px;
+    border-radius: 4px;
+    margin: 16px 0;
+  }
 
-.popular-cities {
-  margin-top: 16px;
-}
+  .popular-cities {
+    margin-top: 16px;
+  }
 
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 
-.tag.is-clickable {
-  cursor: pointer;
-  transition: all 0.2s;
-}
+  .tag.is-clickable {
+    cursor: pointer;
+    transition: all 0.2s;
+  }
 
-.tag.is-clickable:hover {
-  background-color: #f0f0f0;
-  color: #0a0a0a;
-}
+  .tag.is-clickable:hover {
+    background-color: #f0f0f0;
+    color: #0a0a0a;
+  }
 </style>

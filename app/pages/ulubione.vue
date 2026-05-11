@@ -1,24 +1,24 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: 'default',
-})
+  definePageMeta({
+    layout: 'default',
+  })
 
-const listingsStore = useListingsStore()
-const favoritesStore = useFavoritesStore()
+  const listingsStore = useListingsStore()
+  const favoritesStore = useFavoritesStore()
 
-const favoriteListings = computed(() => {
-  return listingsStore.listings.filter((listing) =>
-    favoritesStore.favoriteIds.includes(listing.id),
-  )
-})
+  const favoriteListings = computed(() => {
+    return listingsStore.listings.filter((listing) =>
+      favoritesStore.favoriteIds.includes(listing.id),
+    )
+  })
 
-const removeFavorite = (listingId: number) => {
-  favoritesStore.removeFavorite(listingId)
-}
+  const removeFavorite = (listingId: number) => {
+    favoritesStore.removeFavorite(listingId)
+  }
 
-onMounted(() => {
-  favoritesStore.loadFromStorage()
-})
+  onMounted(() => {
+    favoritesStore.loadFromStorage()
+  })
 </script>
 
 <template>
@@ -40,9 +40,7 @@ onMounted(() => {
             </div>
             <div class="card-content">
               <p class="title is-5">{{ listing.title }}</p>
-              <p class="subtitle is-6">
-                {{ listing.city }}, {{ listing.district }}
-              </p>
+              <p class="subtitle is-6">{{ listing.city }}, {{ listing.district }}</p>
 
               <div class="mb-3">
                 <p>
@@ -59,20 +57,14 @@ onMounted(() => {
               <div class="level is-mobile">
                 <div class="level-left">
                   <div class="level-item">
-                    <NuxtLink
-                      :to="`/oferta/${listing.id}`"
-                      class="button is-small is-info"
-                    >
+                    <NuxtLink :to="`/oferta/${listing.id}`" class="button is-small is-info">
                       Szczegóły
                     </NuxtLink>
                   </div>
                 </div>
                 <div class="level-right">
                   <div class="level-item">
-                    <button
-                      class="button is-small is-danger"
-                      @click="removeFavorite(listing.id)"
-                    >
+                    <button class="button is-small is-danger" @click="removeFavorite(listing.id)">
                       ✕ Usuń
                     </button>
                   </div>
@@ -85,16 +77,14 @@ onMounted(() => {
 
       <div v-else class="notification is-info">
         <p>Nie masz żadnych ulubionych nieruchomości.</p>
-        <NuxtLink to="/szukaj" class="button is-info mt-3">
-          Szukaj nieruchomości
-        </NuxtLink>
+        <NuxtLink to="/szukaj" class="button is-info mt-3"> Szukaj nieruchomości </NuxtLink>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.card {
-  height: 100%;
-}
+  .card {
+    height: 100%;
+  }
 </style>

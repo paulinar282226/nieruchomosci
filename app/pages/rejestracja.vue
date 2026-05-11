@@ -1,59 +1,59 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: 'default',
-})
+  definePageMeta({
+    layout: 'default',
+  })
 
-const router = useRouter()
-const authStore = useAuthStore()
+  const router = useRouter()
+  const authStore = useAuthStore()
 
-const name = ref('')
-const email = ref('')
-const password = ref('')
-const passwordConfirm = ref('')
-const errorMessage = ref('')
-const successMessage = ref('')
-const isLoading = ref(false)
+  const name = ref('')
+  const email = ref('')
+  const password = ref('')
+  const passwordConfirm = ref('')
+  const errorMessage = ref('')
+  const successMessage = ref('')
+  const isLoading = ref(false)
 
-const handleRegister = async () => {
-  errorMessage.value = ''
-  successMessage.value = ''
-  isLoading.value = true
+  const handleRegister = async () => {
+    errorMessage.value = ''
+    successMessage.value = ''
+    isLoading.value = true
 
-  if (!name.value || !email.value || !password.value || !passwordConfirm.value) {
-    errorMessage.value = 'Uzupełnij wszystkie pola'
+    if (!name.value || !email.value || !password.value || !passwordConfirm.value) {
+      errorMessage.value = 'Uzupełnij wszystkie pola'
+      isLoading.value = false
+      return
+    }
+
+    if (password.value !== passwordConfirm.value) {
+      errorMessage.value = 'Hasła nie są identyczne'
+      isLoading.value = false
+      return
+    }
+
+    if (password.value.length < 3) {
+      errorMessage.value = 'Hasło musi mieć co najmniej 3 znaki'
+      isLoading.value = false
+      return
+    }
+
+    const success = authStore.register(email.value, name.value, password.value)
+
+    if (success) {
+      successMessage.value = 'Rejestracja powiodła się! Przekierowuję...'
+      setTimeout(() => {
+        router.push('/konto')
+      }, 1500)
+    } else {
+      errorMessage.value = 'Użytkownik z tym emailem już istnieje'
+    }
+
     isLoading.value = false
-    return
   }
 
-  if (password.value !== passwordConfirm.value) {
-    errorMessage.value = 'Hasła nie są identyczne'
-    isLoading.value = false
-    return
-  }
-
-  if (password.value.length < 3) {
-    errorMessage.value = 'Hasło musi mieć co najmniej 3 znaki'
-    isLoading.value = false
-    return
-  }
-
-  const success = authStore.register(email.value, name.value, password.value)
-
-  if (success) {
-    successMessage.value = 'Rejestracja powiodła się! Przekierowuję...'
-    setTimeout(() => {
-      router.push('/konto')
-    }, 1500)
-  } else {
-    errorMessage.value = 'Użytkownik z tym emailem już istnieje'
-  }
-
-  isLoading.value = false
-}
-
-onMounted(() => {
-  authStore.loadFromStorage()
-})
+  onMounted(() => {
+    authStore.loadFromStorage()
+  })
 </script>
 
 <template>
@@ -88,12 +88,7 @@ onMounted(() => {
               <div class="field">
                 <label class="label">Email</label>
                 <div class="control">
-                  <input
-                    v-model="email"
-                    type="email"
-                    class="input"
-                    placeholder="Twój email"
-                  />
+                  <input v-model="email" type="email" class="input" placeholder="Twój email" />
                 </div>
               </div>
 
@@ -133,18 +128,14 @@ onMounted(() => {
                   </button>
                 </div>
                 <div class="control">
-                  <NuxtLink to="/" class="button is-light">
-                    Anuluj
-                  </NuxtLink>
+                  <NuxtLink to="/" class="button is-light"> Anuluj </NuxtLink>
                 </div>
               </div>
             </form>
 
             <p class="mt-4">
               Masz już konto?
-              <NuxtLink to="/logowanie" class="has-text-info">
-                Zaloguj się
-              </NuxtLink>
+              <NuxtLink to="/logowanie" class="has-text-info"> Zaloguj się </NuxtLink>
             </p>
           </div>
         </div>
@@ -154,7 +145,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.box {
-  border-radius: 4px;
-}
+  .box {
+    border-radius: 4px;
+  }
 </style>

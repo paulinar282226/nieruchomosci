@@ -1,58 +1,58 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: 'default',
-})
+  definePageMeta({
+    layout: 'default',
+  })
 
-const route = useRoute()
-const router = useRouter()
-const listingsStore = useListingsStore()
-const authStore = useAuthStore()
-const favoritesStore = useFavoritesStore()
-const reservationsStore = useReservationsStore()
+  const route = useRoute()
+  const router = useRouter()
+  const listingsStore = useListingsStore()
+  const authStore = useAuthStore()
+  const favoritesStore = useFavoritesStore()
+  const reservationsStore = useReservationsStore()
 
-const listingId = computed(() => parseInt(route.params.id as string))
-const listing = computed(() => listingsStore.getListingById(listingId.value))
-const isFavorite = computed(() => favoritesStore.isFavorite(listingId.value))
-const showReservationModal = ref(false)
+  const listingId = computed(() => parseInt(route.params.id as string))
+  const listing = computed(() => listingsStore.getListingById(listingId.value))
+  const isFavorite = computed(() => favoritesStore.isFavorite(listingId.value))
+  const showReservationModal = ref(false)
 
-const toggleFavorite = () => {
-  favoritesStore.toggleFavorite(listingId.value)
-}
-
-const createReservation = () => {
-  if (!authStore.isAuthenticated) {
-    router.push('/logowanie')
-    return
+  const toggleFavorite = () => {
+    favoritesStore.toggleFavorite(listingId.value)
   }
 
-  if (!listing.value) return
+  const createReservation = () => {
+    if (!authStore.isAuthenticated) {
+      router.push('/logowanie')
+      return
+    }
 
-  reservationsStore.createReservation(
-    listing.value.id,
-    authStore.currentUser!.id,
-    listing.value.offerType,
-    listing.value.title,
-    listing.value.price,
-    listing.value.city,
-  )
+    if (!listing.value) return
 
-  showReservationModal.value = false
+    reservationsStore.createReservation(
+      listing.value.id,
+      authStore.currentUser!.id,
+      listing.value.offerType,
+      listing.value.title,
+      listing.value.price,
+      listing.value.city,
+    )
 
-  useRouter().push('/konto')
-}
+    showReservationModal.value = false
 
-const formatPrice = (price: number) => {
-  return new Intl.NumberFormat('pl-PL', {
-    style: 'currency',
-    currency: 'PLN',
-  }).format(price)
-}
+    useRouter().push('/konto')
+  }
 
-onMounted(() => {
-  authStore.loadFromStorage()
-  favoritesStore.loadFromStorage()
-  reservationsStore.loadFromStorage()
-})
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('pl-PL', {
+      style: 'currency',
+      currency: 'PLN',
+    }).format(price)
+  }
+
+  onMounted(() => {
+    authStore.loadFromStorage()
+    favoritesStore.loadFromStorage()
+    reservationsStore.loadFromStorage()
+  })
 </script>
 
 <template>
@@ -84,9 +84,7 @@ onMounted(() => {
               </div>
             </div>
 
-            <p class="subtitle is-6">
-              {{ listing.city }}, {{ listing.district }}
-            </p>
+            <p class="subtitle is-6">{{ listing.city }}, {{ listing.district }}</p>
 
             <div class="columns mt-4">
               <div class="column is-3">
@@ -123,9 +121,7 @@ onMounted(() => {
                   <p><strong>Rok budowy:</strong> {{ listing.yearBuilt }}</p>
                 </div>
                 <div class="column is-6">
-                  <p v-if="listing.floor !== null">
-                    <strong>Piętro:</strong> {{ listing.floor }}
-                  </p>
+                  <p v-if="listing.floor !== null"><strong>Piętro:</strong> {{ listing.floor }}</p>
                   <p><strong>Biuro:</strong> {{ listing.agency }}</p>
                 </div>
               </div>
@@ -144,10 +140,7 @@ onMounted(() => {
               {{ listing.offerType === 'sprzedaz' ? 'Chcę kupić' : 'Chcę wynająć' }}
             </h2>
             <p class="mb-4">Zarezerwuj tę nieruchomość</p>
-            <button
-              class="button is-success is-fullwidth"
-              @click="showReservationModal = true"
-            >
+            <button class="button is-success is-fullwidth" @click="showReservationModal = true">
               Rezerwuj
             </button>
           </div>
@@ -158,9 +151,7 @@ onMounted(() => {
           </div>
 
           <div class="box">
-            <button class="button is-light is-fullwidth" @click="$router.back()">
-              ← Wróć
-            </button>
+            <button class="button is-light is-fullwidth" @click="$router.back()">← Wróć</button>
           </div>
         </div>
       </div>
@@ -171,33 +162,21 @@ onMounted(() => {
       <div class="modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">Potwierdzenie rezerwacji</p>
-          <button
-            class="delete"
-            aria-label="close"
-            @click="showReservationModal = false"
-          ></button>
+          <button class="delete" aria-label="close" @click="showReservationModal = false"></button>
         </header>
         <section class="modal-card-body">
           <p class="mb-3">Czy na pewno chcesz zarezerwować tę nieruchomość?</p>
           <div class="box has-background-light">
-            <p><strong>{{ listing.title }}</strong></p>
+            <p>
+              <strong>{{ listing.title }}</strong>
+            </p>
             <p>{{ listing.city }}, {{ listing.district }}</p>
             <p class="mt-2">{{ formatPrice(listing.price) }}</p>
           </div>
         </section>
         <footer class="modal-card-foot">
-          <button
-            class="button"
-            @click="showReservationModal = false"
-          >
-            Anuluj
-          </button>
-          <button
-            class="button is-success"
-            @click="createReservation()"
-          >
-            Rezerwuj
-          </button>
+          <button class="button" @click="showReservationModal = false">Anuluj</button>
+          <button class="button is-success" @click="createReservation()">Rezerwuj</button>
         </footer>
       </div>
     </div>
@@ -213,7 +192,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.box {
-  border-radius: 4px;
-}
+  .box {
+    border-radius: 4px;
+  }
 </style>

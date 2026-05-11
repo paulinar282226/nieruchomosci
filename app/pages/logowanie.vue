@@ -1,40 +1,40 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: 'default',
-})
+  definePageMeta({
+    layout: 'default',
+  })
 
-const router = useRouter()
-const authStore = useAuthStore()
+  const router = useRouter()
+  const authStore = useAuthStore()
 
-const email = ref('')
-const password = ref('')
-const errorMessage = ref('')
-const isLoading = ref(false)
+  const email = ref('')
+  const password = ref('')
+  const errorMessage = ref('')
+  const isLoading = ref(false)
 
-const handleLogin = async () => {
-  errorMessage.value = ''
-  isLoading.value = true
+  const handleLogin = async () => {
+    errorMessage.value = ''
+    isLoading.value = true
 
-  if (!email.value || !password.value) {
-    errorMessage.value = 'Uzupełnij wszystkie pola'
+    if (!email.value || !password.value) {
+      errorMessage.value = 'Uzupełnij wszystkie pola'
+      isLoading.value = false
+      return
+    }
+
+    const success = authStore.login(email.value, password.value)
+
+    if (success) {
+      await router.push('/konto')
+    } else {
+      errorMessage.value = 'Nieprawidłowy email lub hasło'
+    }
+
     isLoading.value = false
-    return
   }
 
-  const success = authStore.login(email.value, password.value)
-
-  if (success) {
-    await router.push('/konto')
-  } else {
-    errorMessage.value = 'Nieprawidłowy email lub hasło'
-  }
-
-  isLoading.value = false
-}
-
-onMounted(() => {
-  authStore.loadFromStorage()
-})
+  onMounted(() => {
+    authStore.loadFromStorage()
+  })
 </script>
 
 <template>
@@ -53,12 +53,7 @@ onMounted(() => {
               <div class="field">
                 <label class="label">Email</label>
                 <div class="control">
-                  <input
-                    v-model="email"
-                    type="email"
-                    class="input"
-                    placeholder="Twój email"
-                  />
+                  <input v-model="email" type="email" class="input" placeholder="Twój email" />
                 </div>
               </div>
 
@@ -86,18 +81,14 @@ onMounted(() => {
                   </button>
                 </div>
                 <div class="control">
-                  <NuxtLink to="/" class="button is-light">
-                    Anuluj
-                  </NuxtLink>
+                  <NuxtLink to="/" class="button is-light"> Anuluj </NuxtLink>
                 </div>
               </div>
             </form>
 
             <p class="mt-4">
               Nie masz konta?
-              <NuxtLink to="/rejestracja" class="has-text-info">
-                Zarejestruj się
-              </NuxtLink>
+              <NuxtLink to="/rejestracja" class="has-text-info"> Zarejestruj się </NuxtLink>
             </p>
 
             <div class="box has-background-light mt-4">
@@ -115,7 +106,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.box {
-  border-radius: 4px;
-}
+  .box {
+    border-radius: 4px;
+  }
 </style>

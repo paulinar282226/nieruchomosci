@@ -5,7 +5,7 @@ Portal ogłoszeń nieruchomości - nowoczesna aplikacja PWA (Progressive Web App
 ## ✨ Funkcjonalności
 
 - **Wyszukiwanie zaawansowane** - filtry po cenie, powierzchni, liczbie pokoi, mieście i typie nieruchomości
-- **System autentykacji** - rejestracja i logowanie użytkowników  
+- **System autentykacji** - rejestracja i logowanie użytkowników
 - **Ulubione** - zapisywanie i zarządzanie ulubionymi nieruchomościami
 - **Rezerwacje** - system rezerwacji nieruchomości z zarządzaniem statusem
 - **Detale ofert** - pełny opis nieruchomości z galerią zdjęć
@@ -112,6 +112,7 @@ npm run preview   # Preview build'u
 ## 📊 Dane testowe
 
 Aplikacja zawiera ~30 testowych nieruchomości w 3 miastach:
+
 - Warszawa (10 ofert)
 - Kraków (10 ofert)
 - Wrocław (10 ofert)
@@ -133,6 +134,7 @@ Aplikacja automatycznie deployuje się na HTTPS.
 ## 📈 Lighthouse scores
 
 Aplikacja osiąga wysokie wyniki Lighthouse:
+
 - ✅ Performance: 90+
 - ✅ Accessibility: 90+
 - ✅ Best Practices: 90+
@@ -142,6 +144,7 @@ Aplikacja osiąga wysokie wyniki Lighthouse:
 ## 📄 Git History
 
 Projekt zawiera czystą historię commitów:
+
 - `feat: add pinia stores and search functionality with new property card design`
 - `feat: configure PWA with manifest and service worker`
 
@@ -157,4 +160,3 @@ Projekt zawiera czystą historię commitów:
 **Status**: ✅ Production Ready
 
 **Wersja**: 1.0.0 | **Rok**: 2026
-

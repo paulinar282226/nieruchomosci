@@ -1,9 +1,9 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: 'default',
-})
+  definePageMeta({
+    layout: 'default',
+  })
 
-const listingsStore = useListingsStore()
+  const listingsStore = useListingsStore()
 </script>
 
 <template>
@@ -25,10 +25,7 @@ const listingsStore = useListingsStore()
             </p>
           </div>
 
-          <div
-            v-if="listingsStore.filteredListings.length > 0"
-            class="columns is-multiline"
-          >
+          <div v-if="listingsStore.filteredListings.length > 0" class="columns is-multiline">
             <div
               v-for="listing in listingsStore.filteredListings"
               :key="listing.id"
@@ -48,7 +45,7 @@ const listingsStore = useListingsStore()
 </template>
 
 <style scoped>
-.subtitle strong {
-  color: #3273dc;
-}
+  .subtitle strong {
+    color: #3273dc;
+  }
 </style>

@@ -1,11 +1,17 @@
 <script setup lang="ts">
-const authStore = useAuthStore()
-const favoritesStore = useFavoritesStore()
+  const authStore = useAuthStore()
+  const favoritesStore = useFavoritesStore()
 
-onMounted(() => {
-  authStore.loadFromStorage()
-  favoritesStore.loadFromStorage()
-})
+  onMounted(() => {
+    authStore.loadFromStorage()
+    favoritesStore.loadFromStorage()
+  })
+
+  const handleLogout = () => {
+    authStore.logout()
+    const router = useRouter()
+    router.push("/")
+  }
 </script>
 
 <template>
@@ -13,15 +19,13 @@ onMounted(() => {
     <div class="container">
       <div class="navbar-brand">
         <NuxtLink class="navbar-item" to="/">
-          <strong class="has-text-primary is-size-5">nieruchomości-online.pl</strong>
+          <strong class="has-text-primary is-size-5">nieruchomosci-online.pl</strong>
         </NuxtLink>
       </div>
 
       <div id="mainNav" class="navbar-menu always-open">
         <div class="navbar-start">
-          <NuxtLink class="navbar-item search-item" to="/szukaj">
-            Szukaj
-          </NuxtLink>
+          <NuxtLink class="navbar-item search-item" to="/szukaj"> Szukaj </NuxtLink>
         </div>
 
         <div class="navbar-end">
@@ -37,28 +41,21 @@ onMounted(() => {
               {{ authStore.currentUser?.name }}
             </a>
             <div class="navbar-dropdown">
-              <NuxtLink class="navbar-item" to="/konto">
-                Moje konto
-              </NuxtLink>
+              <NuxtLink class="navbar-item" to="/konto"> Moje konto </NuxtLink>
               <hr class="navbar-divider" />
-              <NuxtLink
+              <a
                 class="navbar-item"
-                @click="authStore.logout(); $router.push('/')"
-                to="/"
+                @click="handleLogout"
               >
-                Wyloguj się
-              </NuxtLink>
+                Wyloguj sie
+              </a>
             </div>
           </div>
 
           <div v-else class="navbar-item">
             <div class="buttons">
-              <NuxtLink class="button is-primary" to="/rejestracja">
-                Zarejestruj się
-              </NuxtLink>
-              <NuxtLink class="button is-light" to="/logowanie">
-                Zaloguj się
-              </NuxtLink>
+              <NuxtLink class="button is-primary" to="/rejestracja"> Zarejestruj sie </NuxtLink>
+              <NuxtLink class="button is-light" to="/logowanie"> Zaloguj sie </NuxtLink>
             </div>
           </div>
         </div>
@@ -67,52 +64,18 @@ onMounted(() => {
   </nav>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
   .always-open {
-    display: flex;
-    align-items: stretch;
-    flex-grow: 1;
-    flex-shrink: 0;
+    display: flex !important;
   }
-
-  @media (max-width: 1023px) {
-    .always-open {
-      display: block;
-      box-shadow: none;
-      padding: 0;
-    }
-  }
-
-  .search-item {
-    background: #f6f6f6;
-    border-radius: 10px;
-    margin: 0.4rem 0.5rem;
+  .navbar-item.search-item {
     font-weight: 600;
-    color: #5f5757;
   }
-
-  .search-item:hover {
-    background: #ececec;
-    color: #4a3b3b;
-  }
-
-  .category-bar {
-    margin-top: 3.25rem;
-    border-bottom: 1px solid #e8e8e8;
-    background: #fff;
-  }
-
-  .tabs ul {
-    border-bottom: none;
-  }
-
-  .tabs a {
-    color: #4a4a4a;
-    font-weight: 500;
-
-    &:hover {
-      color: #00a68b;
-      border-bottom-color: #00a68b;
+  @media screen and (max-width: 1023px) {
+    .navbar-menu {
+      background-color: white;
+      box-shadow: 0 8px 16px rgba(10, 10, 10, 0.1);
+      padding: 0.5rem 0;
     }
   }
 </style>

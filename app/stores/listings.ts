@@ -45,38 +45,23 @@ export const useListingsStore = defineStore('listings', () => {
         return false
       }
 
-      if (
-        filters.value.priceMin !== null &&
-        listing.price < filters.value.priceMin
-      ) {
+      if (filters.value.priceMin !== null && listing.price < filters.value.priceMin) {
         return false
       }
 
-      if (
-        filters.value.priceMax !== null &&
-        listing.price > filters.value.priceMax
-      ) {
+      if (filters.value.priceMax !== null && listing.price > filters.value.priceMax) {
         return false
       }
 
-      if (
-        filters.value.areaMin !== null &&
-        listing.area < filters.value.areaMin
-      ) {
+      if (filters.value.areaMin !== null && listing.area < filters.value.areaMin) {
         return false
       }
 
-      if (
-        filters.value.areaMax !== null &&
-        listing.area > filters.value.areaMax
-      ) {
+      if (filters.value.areaMax !== null && listing.area > filters.value.areaMax) {
         return false
       }
 
-      if (
-        filters.value.roomsMin !== null &&
-        listing.rooms < filters.value.roomsMin
-      ) {
+      if (filters.value.roomsMin !== null && listing.rooms < filters.value.roomsMin) {
         return false
       }
 
