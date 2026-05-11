@@ -18,7 +18,25 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
+      meta: [
+        {
+          name: 'theme-color',
+          content: '#3273dc',
+        },
+        {
+          name: 'apple-mobile-web-app-capable',
+          content: 'yes',
+        },
+        {
+          name: 'apple-mobile-web-app-title',
+          content: 'Nieruchomości',
+        },
+      ],
       link: [
+        {
+          rel: 'manifest',
+          href: '/manifest.webmanifest',
+        },
         {
           rel: 'preconnect',
           href: 'https://fonts.googleapis.com',
