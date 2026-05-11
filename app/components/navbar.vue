@@ -10,7 +10,7 @@
   const handleLogout = () => {
     authStore.logout()
     const router = useRouter()
-    router.push("/")
+    router.push('/')
   }
 </script>
 
@@ -43,12 +43,7 @@
             <div class="navbar-dropdown">
               <NuxtLink class="navbar-item" to="/konto"> Moje konto </NuxtLink>
               <hr class="navbar-divider" />
-              <a
-                class="navbar-item"
-                @click="handleLogout"
-              >
-                Wyloguj sie
-              </a>
+              <a class="navbar-item" @click="handleLogout"> Wyloguj sie </a>
             </div>
           </div>
 
